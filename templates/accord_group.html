@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Accord Group - Accord Industrial Services{% endblock %}
+{% block content %}
+    <section class="py-5 bg-light animated fadeInUp">
+        <div class="container">
+            <h1 class="mb-4"><i class="bi bi-diagram-3 text-primary me-2"></i>Accord Group</h1>
+            <div class="mb-4">
+                <h4><i class="bi bi-globe2 text-success me-2"></i>Overview</h4>
+                <p>Accord Group is a global leader in industrial solutions, safety, and logistics. With a legacy of over 30 years, Accord Group connects businesses and communities through innovation, reliability, and a commitment to excellence. Our companies serve a wide range of industries, providing world-class products and services that empower people and protect lives.</p>
+            </div>
+            <div class="mb-4">
+                <h5><i class="bi bi-eye text-warning me-2"></i>Strategic Vision</h5>
+                <p>To be the most trusted partner in industrial safety, logistics, and services worldwide—driving progress, sustainability, and well-being for all our stakeholders.</p>
+            </div>
+            <div class="mb-4">
+                <h5><i class="bi bi-people text-info me-2"></i>Sister Brands / Businesses</h5>
+                <div class="row g-3">
+                    {% for business in businesses %}
+                    <div class="col-6 col-md-4 col-lg-2 text-center">
+                        <div class="brand-card p-3 bg-white rounded shadow-sm h-100 animated fadeInLeft">
+                            {% if business.icon %}
+                            <img src="{{ business.icon.url }}" alt="{{ business.name }}" class="mb-2" style="height:48px;">
+                            {% else %}
+                            <div class="d-flex align-items-center justify-content-center bg-light mb-2" style="height:48px;">
+                                <i class="bi bi-building" style="font-size:2rem; color:#ccc;"></i>
+                            </div>
+                            {% endif %}
+                            <div class="fw-bold">{{ business.name }}</div>
+                            <div class="small text-muted">{{ business.sector }}</div>
+                            <div class="small">{{ business.description }}</div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>No businesses added yet.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Group of Departments Section -->
+    <section class="py-5 section-bg animated fadeInUp">
+        <div class="container">
+            <h2 class="mb-4 text-center"><i class="bi bi-layers text-primary me-2"></i>A Group of Departments</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm text-center animated fadeInLeft">
+                        <div class="card-body">
+                            <i class="bi bi-shield-check display-4 text-warning mb-3"></i>
+                            <h5 class="card-title">PPE's Supplies</h5>
+                            <p class="card-text">Supplying certified personal protective equipment for all industries and needs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm text-center animated fadeInLeft" style="animation-delay:0.1s;">
+                        <div class="card-body">
+                            <i class="bi bi-tools display-4 text-success mb-3"></i>
+                            <h5 class="card-title">General Civil Works</h5>
+                            <p class="card-text">Delivering quality civil engineering, construction, and maintenance services.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm text-center animated fadeInLeft" style="animation-delay:0.2s;">
+                        <div class="card-body">
+                            <i class="bi bi-house-door display-4 text-info mb-3"></i>
+                            <h5 class="card-title">Procurement of Household Supplies</h5>
+                            <p class="card-text">Sourcing and supplying essential household and office consumables.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm text-center animated fadeInLeft" style="animation-delay:0.3s;">
+                        <div class="card-body">
+                            <i class="bi bi-bricks display-4 text-danger mb-3"></i>
+                            <h5 class="card-title">Construction Materials</h5>
+                            <p class="card-text">Providing a wide range of quality construction and building materials.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5">
+        <div class="container">
+            <h2 class="mb-4">Leadership & Board</h2>
+            <div class="row">
+                {% for member in team %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm leader-card position-relative">
+                        {% if member.photo %}
+                        <img src="{{ member.photo.url }}" class="card-img-top img-fluid" alt="{{ member.name }}">
+                        {% else %}
+                        <div class="d-flex align-items-center justify-content-center bg-light" style="height:220px;">
+                            <i class="bi bi-person-circle" style="font-size:3rem; color:#ccc;"></i>
+                        </div>
+                        {% endif %}
+                        <span class="badge bg-primary position-absolute top-0 end-0 m-2">{{ member.role }}</span>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ member.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ member.role }}</h6>
+                            <p class="card-text">{{ member.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No leadership or board members added yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <style>
+    .brand-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        border-top: 4px solid var(--accord-blue, #0d47a1);
+    }
+    .brand-card:hover {
+        transform: translateY(-6px) scale(1.04);
+        box-shadow: 0 8px 32px rgba(26,35,126,0.12);
+        border-top: 4px solid var(--accord-yellow, #ffc107);
+    }
+    .leader-card img {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+    .leader-card .badge {
+        font-size: 1rem;
+        padding: 0.5em 1em;
+    }
+    </style>
+{% endblock %} 

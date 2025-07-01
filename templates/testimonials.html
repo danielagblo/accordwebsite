@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Testimonials - Accord Industrial Services{% endblock %}
+{% block content %}
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h1 class="mb-4">Testimonials</h1>
+            <div class="row">
+                {% for testimonial in testimonials %}
+                <div class="col-12 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                {% if testimonial.logo %}
+                                <img src="{% if testimonial.logo.url %}{{ testimonial.logo.url }}{% else %}{{ testimonial.logo }}{% endif %}" alt="{{ testimonial.company }} logo" class="me-3 img-fluid" style="height:48px; width:auto;">
+                                {% endif %}
+                                <div>
+                                    <h5 class="card-title mb-0">{{ testimonial.client_name }}</h5>
+                                    <small class="text-muted">{{ testimonial.company }}</small>
+                                </div>
+                            </div>
+                            <p class="card-text">{{ testimonial.content }}</p>
+                            {% if testimonial.video %}
+                            <div class="ratio ratio-16x9 mb-2">
+                                <iframe src="{{ testimonial.video }}" title="Video Testimonial" allowfullscreen></iframe>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No testimonials available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="py-5 bg-white border-top">
+        <div class="container">
+            <h2 class="mb-4">Submit a Testimonial</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-12 col-md-6">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <input type="text" class="form-control" placeholder="Company Name">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4" placeholder="Your Testimonial" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <input type="url" class="form-control" placeholder="Video Testimonial Link (optional)">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </section>
+{% endblock %} 

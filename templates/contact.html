@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Contact & Careers - Accord Industrial Services{% endblock %}
+{% block content %}
+    <section class="py-5 bg-light animated fadeInUp">
+        <div class="container">
+            <h1 class="mb-4"><i class="bi bi-envelope-paper text-primary me-2"></i>Contact Us</h1>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-4">
+                    <h5><i class="bi bi-chat-dots text-success me-2"></i>Request a Price Quote</h5>
+                    <a href="mailto:inquiry@accordindustrialservices.com?subject=Request%20for%20Price%20Quote" class="btn btn-warning btn-lg mb-3" target="_blank">
+                        <i class="bi bi-envelope-fill me-1"></i> Request Price Quote via Email
+                    </a>
+                    <p class="text-muted">Click the button above to send us your price quote request directly from your email. Please include details such as the product/service, quantity, and any specific requirements.</p>
+                </div>
+                <div class="col-12 col-md-6 mb-4">
+                    <h5><i class="bi bi-geo-alt text-warning me-2"></i>Contact Information</h5>
+                    {% if company_info %}
+                        <p><i class="bi bi-envelope-at me-1"></i><strong>Email:</strong> inquiry@accordindustrialservices.com</p>
+                        <p><i class="bi bi-telephone me-1"></i><strong>Phone:</strong> {{ company_info.contact_phone }}</p>
+                        <a href="https://wa.me/233548210788" target="_blank" class="btn btn-success mb-2"><i class="bi bi-whatsapp me-1"></i>Chat on WhatsApp</a>
+                        <p><i class="bi bi-geo-alt me-1"></i><strong>Office Location:</strong> {{ company_info.office_location }}</p>
+                        <div class="ratio ratio-16x9 mb-2 animated fadeInUp">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.454056776854!2d-0.06369952650160922!3d5.64725463272839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf87097e6427f1%3A0xf856049dc9b85794!2sACCORD%20INDUSTRIAL%20SERVICES!5e0!3m2!1sen!2sgh!4v1750793077096!5m2!1sen!2sgh" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    {% else %}
+                        <p>Contact information coming soon.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 animated fadeInUp">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-briefcase text-primary me-2"></i>Careers & Job Openings</h2>
+            <div class="row">
+                {% for job in jobs %}
+                <div class="col-12 col-md-6 mb-4">
+                    <div class="card h-100 shadow-sm animated fadeInLeft">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-briefcase-fill text-warning me-2"></i>{{ job.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"><i class="bi bi-geo-alt me-1"></i>{{ job.location }}</h6>
+                            <p class="card-text">{{ job.description }}</p>
+                            <small class="text-muted"><i class="bi bi-calendar-event me-1"></i>Posted on {{ job.posted_at }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No job openings at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- FAQs Section -->
+    <section class="py-5 bg-light animated fadeInUp">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-question-circle text-primary me-2"></i>Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                {% for faq in faqs %}
+                <div class="accordion-item animated fadeInLeft">
+                    <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                        <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="collapse{{ forloop.counter }}">
+                            <i class="bi bi-question-circle me-2 text-warning"></i>{{ faq.question }}
+                        </button>
+                    </h2>
+                    <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            {{ faq.answer }}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No FAQs available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %} 

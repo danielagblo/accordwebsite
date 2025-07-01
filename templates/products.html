@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block title %}Products - Accord Industrial Services{% endblock %}
+{% block content %}
+    <section class="py-5 bg-light animated fadeInUp">
+        <div class="container">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+                <h1 class="mb-0"><i class="bi bi-box-seam text-primary me-2"></i>Our Products</h1>
+                <div>
+                    <a href="#quote" class="btn btn-warning"><i class="bi bi-clipboard-check me-1"></i>Request a Quote</a>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4><i class="bi bi-tags text-success me-2"></i>PPE Categories</h4>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="{% url 'products' %}" class="badge fs-6 py-2 px-3 {% if not selected_category %}bg-warning text-dark border border-primary{% else %}bg-light text-primary border border-primary{% endif %}" style="cursor:pointer; text-decoration:none;"><i class="bi bi-grid me-1"></i>All Products</a>
+                        {% for category in categories %}
+                        <a href="{% url 'products' %}?category={{ category.name|urlencode }}" class="badge fs-6 py-2 px-3 {% if selected_category == category.name %}bg-warning text-dark border border-primary{% else %}bg-primary{% endif %}" style="cursor:pointer; text-decoration:none;"><i class="bi bi-tag me-1"></i>{{ category.name }}</a>
+                        {% empty %}
+                        <span>No categories available.</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for product in products %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-lg border-0 rounded-4 product-card position-relative overflow-hidden animated fadeInLeft" style="transition: transform 0.3s, box-shadow 0.3s; border-top: 5px solid var(--accord-yellow);">
+                        <div class="text-center pt-4 px-3">
+                            {% if product.image %}
+                            <img src="{% if product.image.url %}{{ product.image.url }}{% else %}{{ product.image }}{% endif %}" class="img-fluid rounded-3 mb-3" style="max-height: 180px; object-fit: contain; background: #f8f9fa; box-shadow: 0 2px 8px rgba(26,35,126,0.06);" alt="{{ product.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title fw-bold text-primary mb-2"><i class="bi bi-box2 text-warning me-2"></i>{{ product.name }}</h5>
+                            <p class="card-text small mb-2">{{ product.description }}</p>
+                            <p class="mb-1"><span class="badge bg-warning text-dark"><i class="bi bi-tag me-1"></i>{{ product.category.name }}</span></p>
+                            {% if product.certifications %}
+                            <div class="mb-2">
+                                <span class="badge bg-success text-light"><i class="bi bi-patch-check me-1"></i>{{ product.certifications }}</span>
+                            </div>
+                            {% endif %}
+                            <a href="#quote" class="btn btn-outline-primary mt-auto"><i class="bi bi-clipboard-check me-1"></i>Request Quote</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No products available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section id="quote" class="py-5 bg-white border-top animated fadeInUp">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-clipboard-check text-primary me-2"></i>Request a Quote</h2>
+            <a href="mailto:inquiry@accordindustrialservices.com?subject=Request%20for%20Quote" class="btn btn-warning btn-lg mb-3" target="_blank">
+                <i class="bi bi-envelope-fill me-1"></i> Request Quote via Email
+            </a>
+            <p class="text-muted">Click the button above to send us your quote request directly from your email. Please include details such as the product(s), quantity, and any specific requirements.</p>
+        </div>
+    </section>
+    <section id="industries" class="py-5 bg-light animated fadeInUp">
+        <div class="container">
+            <h2 class="mb-4"><i class="bi bi-building text-primary me-2"></i>Industries We Serve</h2>
+            <div class="row">
+                {% for industry in industries %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm text-center animated fadeInLeft">
+                        {% if industry.icon %}
+                        <img src="{% if industry.icon.url %}{{ industry.icon.url }}{% else %}{{ industry.icon }}{% endif %}" class="card-img-top p-4 img-fluid" style="height:120px; object-fit:contain;" alt="{{ industry.name }} icon">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-gear text-secondary me-2"></i>{{ industry.name }}</h5>
+                            <p class="card-text">{{ industry.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No industries available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <style>
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(26,35,126,0.16);
+            border-top: 5px solid var(--accord-blue);
+        }
+    </style>
+{% endblock %} 

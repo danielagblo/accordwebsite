@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Our Programs - Accord Industrial Services{% endblock %}
+{% block content %}
+    <section class="py-5 bg-light animated fadeInUp">
+        <div class="container">
+            <h1 class="mb-4"><i class="bi bi-people-fill text-primary me-2"></i>Our Programs</h1>
+            <div class="row">
+                {% for program in programs %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                    <a href="{% url 'program_detail' program.pk %}" class="text-decoration-none text-dark w-100 h-100">
+                        <div class="card h-100 shadow-sm program-card animated fadeInLeft">
+                            {% if program.images.all %}
+                            <div id="programCarousel{{ program.id }}" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for img in program.images.all %}
+                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                        <img src="{{ img.image.url }}" class="d-block w-100 img-fluid" alt="{{ program.title }} image" style="height:220px; object-fit:cover;">
+                                        {% if img.caption %}
+                                        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded-3 p-2">
+                                            <small>{{ img.caption }}</small>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% if program.images.count > 1 %}
+                                <button class="carousel-control-prev" type="button" data-bs-target="#programCarousel{{ program.id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#programCarousel{{ program.id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                                {% endif %}
+                            </div>
+                            {% elif program.image %}
+                            <img src="{{ program.image.url }}" class="card-img-top img-fluid" alt="{{ program.title }} image" style="height:220px; object-fit:cover;">
+                            {% if program.caption %}
+                            <div class="text-center text-muted small py-2 bg-light border-bottom">{{ program.caption }}</div>
+                            {% endif %}
+                            {% else %}
+                            <div class="d-flex align-items-center justify-content-center bg-light" style="height:220px;">
+                                <i class="bi bi-image" style="font-size:3rem; color:#ccc;"></i>
+                            </div>
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title"><i class="bi bi-lightbulb text-warning me-2"></i>{{ program.title }}</h5>
+                                <p class="card-text flex-grow-1">{{ program.description }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% empty %}
+                <p>No programs available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <style>
+        .program-card {
+            border-top: 5px solid var(--accord-blue, #0d47a1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .program-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(26,35,126,0.16);
+            border-top: 5px solid var(--accord-yellow, #ffc107);
+        }
+        .carousel-item img {
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+    </style>
+{% endblock %} 

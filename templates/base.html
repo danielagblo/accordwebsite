@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Accord Industrial Services{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/custom.css">
+    <link rel="icon" type="image/png" href="/static/favicon.png">
+    {% block extra_head %}{% endblock %}
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 8px rgba(26,35,126,0.04);
+            padding-top: 0.7rem;
+            padding-bottom: 0.7rem;
+            background: rgba(255,255,255,0.85) !important;
+            backdrop-filter: blur(16px) saturate(160%);
+            -webkit-backdrop-filter: blur(16px) saturate(160%);
+            border-bottom: 1.5px solid rgba(26,35,126,0.08);
+        }
+        .navbar .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        .navbar .nav-link {
+            font-size: 1.08rem;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            border-radius: 2rem;
+            padding: 0.5rem 1.1rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar .nav-link.active, .navbar .nav-link:hover {
+            background: var(--accord-yellow, #FFD600);
+            color: var(--accord-blue, #1A237E) !important;
+        }
+        .footer-links a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            background: linear-gradient(90deg, #1A237E 60%, #3949ab 100%);
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+            box-shadow: 0 -2px 16px rgba(26,35,126,0.08);
+        }
+        .footer .social-icons a {
+            color: #FFD600;
+            font-size: 1.3rem;
+            margin: 0 8px;
+            transition: color 0.2s;
+        }
+        .footer .social-icons a:hover {
+            color: #fff;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(26,35,126,0.12);
+        }
+        main#main-content {
+            min-height: 70vh;
+            padding-top: 2.5rem;
+            padding-bottom: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+                <img src="/media/Logo.png" alt="Accord Logo" style="height:80px; width:auto; margin-right:10px; object-fit:contain; margin-top:-28px; margin-bottom:-28px;">
+                <span style="font-size: 0.7em; line-height: 1.1;">Accord Industrial Services</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
+                    {# <li class="nav-item"><a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">About Us</a></li> #}
+                    <li class="nav-item"><a class="nav-link {% if request.path == '/programs/' %}active{% endif %}" href="{% url 'programs' %}">Our Programs</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.path == '/products/' %}active{% endif %}" href="{% url 'products' %}">Products</a></li>
+                    <!-- <li class="nav-item"><a class="nav-link {% if request.path == '/industries/' %}active{% endif %}" href="{% url 'industries' %}">Industries</a></li> -->
+                    <!-- <li class="nav-item"><a class="nav-link {% if request.path == '/faqs/' %}active{% endif %}" href="{% url 'faqs' %}">FAQs</a></li> -->
+                    <li class="nav-item"><a class="nav-link {% if request.path == '/accord-group/' %}active{% endif %}" href="{% url 'accord_group' %}">Accord Group</a></li>
+                    <li class="nav-item"><a class="nav-link {% if request.path == '/contact/' %}active{% endif %}" href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer text-light py-4 mt-5">
+        <div class="container text-center">
+            <div class="footer-links mb-2">
+                <a href="{% url 'home' %}">Home</a>|
+                <a href="{% url 'programs' %}">Programs</a>|
+                <a href="{% url 'products' %}">Products</a>|
+                <!-- <a href="{% url 'industries' %}">Industries</a>| -->
+                <!-- <a href="{% url 'faqs' %}">FAQs</a>| -->
+                <a href="{% url 'accord_group' %}">Accord Group</a>|
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+            <div class="social-icons mb-2">
+                <a href="#" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+            </div>
+            <p class="mb-0">&copy; 2025 Accord Industrial Services. All rights reserved.</p>
+        </div>
+    </footer>
+    <button class="btn btn-warning back-to-top" id="backToTop" title="Back to Top">↑</button>
+    <script src="/static/bootstrap.bundle.min.js"></script>
+    <script>
+        // Show/hide back to top button
+        window.onscroll = function() {
+            document.getElementById('backToTop').style.display = (window.scrollY > 300) ? 'block' : 'none';
+        };
+        document.getElementById('backToTop').onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+        // Intersection Observer for fade/slide animations
+        function animateOnScroll() {
+            const observer = new window.IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.animated').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        window.addEventListener('DOMContentLoaded', animateOnScroll);
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

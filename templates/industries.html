@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Industries We Serve - Accord Industrial Services{% endblock %}
+{% block content %}
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h1 class="mb-4">Industries We Serve</h1>
+            <div class="row">
+                {% for industry in industries %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm text-center">
+                        {% if industry.icon %}
+                        <img src="{% if industry.icon.url %}{{ industry.icon.url }}{% else %}{{ industry.icon }}{% endif %}" class="card-img-top p-4 img-fluid" style="height:120px; object-fit:contain;" alt="{{ industry.name }} icon">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ industry.name }}</h5>
+                            <p class="card-text">{{ industry.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No industries available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %} 

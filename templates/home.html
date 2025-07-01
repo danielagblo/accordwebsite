@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home - Accord Industrial Services{% endblock %}
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero text-center animated fadeInUp" style="background: url('{% static 'images/herohome.png' %}') center/cover no-repeat; color: #fff; min-height: 60vh; display: flex; align-items: center; justify-content: center; flex-direction: column; text-shadow: 0 2px 8px rgba(0,0,0,0.7);">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3"><i class="bi bi-shield-check text-warning me-2"></i>Personal Protective Equipment for Every Industry</h1>
+            <p class="lead"><i class="bi bi-award-fill text-warning me-1"></i>Trusted by Industry Leaders – <span class="fw-bold">A branch of Accord Group</span></p>
+            <a href="{% url 'products' %}" class="btn btn-warning btn-lg mt-3 animated fadeInUp"><i class="bi bi-box-seam me-2"></i>Explore Products</a>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="quick-links py-5 bg-light animated fadeInUp">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-4">
+                    <div class="card h-100 shadow-sm animated fadeInLeft">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-3"><i class="bi bi-box2 text-primary me-2"></i>Products</h5>
+                            <p class="card-text">Browse our full range of certified PPEs for all industries.</p>
+                            <a href="{% url 'products' %}" class="btn btn-outline-primary"><i class="bi bi-search me-1"></i>View Products</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card h-100 shadow-sm animated fadeInLeft" style="animation-delay:0.1s;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-3"><i class="bi bi-people-fill text-success me-2"></i>Our Programs</h5>
+                            <p class="card-text">Discover our safety campaigns, donations, and training sessions.</p>
+                            <a href="{% url 'programs' %}" class="btn btn-outline-success"><i class="bi bi-lightbulb me-1"></i>See Programs</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card h-100 shadow-sm animated fadeInLeft" style="animation-delay:0.2s;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title mb-3"><i class="bi bi-info-circle-fill text-warning me-2"></i>Safety Info</h5>
+                            <p class="card-text">Learn about PPE standards, certifications, and best practices.</p>
+                            <a href="{% url 'faqs' %}" class="btn btn-outline-warning"><i class="bi bi-shield-exclamation me-1"></i>Safety Info</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="py-5 section-bg animated fadeInUp">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0 text-center">
+                    <img src="/media/Logo.png" alt="Accord Logo" class="img-fluid mb-3" style="max-height: 180px;">
+                    <h2 class="mb-3"><i class="bi bi-building text-primary me-2"></i>About Accord Industrial Services</h2>
+                    <a href="{% url 'about' %}" class="btn btn-outline-primary mt-2"><i class="bi bi-info-circle me-1"></i>Learn More About Us</a>
+                </div>
+                <div class="col-lg-7">
+                    {% if company_info %}
+                        <div class="mb-4">
+                            <h4 class="mb-2"><i class="bi bi-journal-richtext text-secondary me-2"></i>Company Profile</h4>
+                            <p>{{ company_info.about }}</p>
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm animated fadeInLeft">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2"><i class="bi bi-bullseye text-success me-2"></i>Our Mission</h5>
+                                        <p class="card-text small">{{ company_info.mission }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 shadow-sm animated fadeInLeft" style="animation-delay:0.1s;">
+                                    <div class="card-body">
+                                        <h5 class="card-title mb-2"><i class="bi bi-gem text-warning me-2"></i>Our Values</h5>
+                                        <p class="card-text small">{{ company_info.values }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <h5 class="mb-2"><i class="bi bi-link-45deg text-info me-2"></i>Connection to Accord Group</h5>
+                            <p>{{ company_info.connection_to_accord }}</p>
+                        </div>
+                    {% else %}
+                        <p>Company information coming soon.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Carousel -->
+    <section id="testimonials" class="py-5 animated fadeInUp">
+        <div class="container">
+            <h2 class="text-center mb-4"><i class="bi bi-chat-quote text-warning me-2"></i>What Our Clients Say</h2>
+            {% if testimonials %}
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                <div class="carousel-inner">
+                    {% for testimonial in testimonials %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-6 col-lg-4 d-flex align-items-stretch">
+                                <div class="testimonial-card p-4 mb-3 shadow-lg bg-white rounded position-relative w-100 animated fadeInLeft" style="border-left: 6px solid var(--accord-yellow);">
+                                    <span class="display-4 text-warning position-absolute" style="left: 20px; top: -30px; opacity: 0.2;"><i class="bi bi-quote"></i></span>
+                                    <div class="d-flex flex-column align-items-center">
+                                        {% if testimonial.logo %}
+                                            <img src="{{ testimonial.logo.url }}" class="rounded-circle mb-3 img-fluid border border-3 border-warning" width="100" height="100" alt="{{ testimonial.client_name }}">
+                                        {% else %}
+                                            <img src="https://randomuser.me/api/portraits/lego/1.jpg" class="rounded-circle mb-3 img-fluid border border-3 border-warning" width="100" height="100" alt="Client">
+                                        {% endif %}
+                                        <blockquote class="blockquote text-center mb-2" style="font-style: italic;">
+                                            <p class="mb-0">{{ testimonial.content|linebreaksbr }}</p>
+                                        </blockquote>
+                                        <div class="d-flex align-items-center gap-2 mt-2">
+                                            <div>
+                                                <span class="fw-bold">{{ testimonial.client_name }}</span><br>
+                                                <small class="text-muted">{{ testimonial.company }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <div class="carousel-indicators mt-4">
+                    {% for testimonial in testimonials %}
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active bg-warning{% endif %}" aria-current="{% if forloop.first %}true{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+                    {% endfor %}
+                </div>
+            </div>
+            {% else %}
+            <p class="text-center">No testimonials available at the moment.</p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %} 
