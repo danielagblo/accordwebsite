@@ -126,7 +126,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
                     {# <li class="nav-item"><a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">About Us</a></li> #}
-                    <li class="nav-item"><a class="nav-link {% if request.path == '/programs/' %}active{% endif %}" href="{% url 'programs' %}">Our Programs</a></li>
+                    <!-- Removed Our Programs nav link as content is now on homepage -->
                     <li class="nav-item"><a class="nav-link {% if request.path == '/products/' %}active{% endif %}" href="{% url 'products' %}">Products</a></li>
                     <!-- <li class="nav-item"><a class="nav-link {% if request.path == '/industries/' %}active{% endif %}" href="{% url 'industries' %}">Industries</a></li> -->
                     <!-- <li class="nav-item"><a class="nav-link {% if request.path == '/faqs/' %}active{% endif %}" href="{% url 'faqs' %}">FAQs</a></li> -->
@@ -145,7 +145,7 @@
         <div class="container text-center">
             <div class="footer-links mb-2">
                 <a href="{% url 'home' %}">Home</a>|
-                <a href="{% url 'programs' %}">Programs</a>|
+                <!-- Removed Programs link from footer as content is now on homepage -->
                 <a href="{% url 'products' %}">Products</a>|
                 <!-- <a href="{% url 'industries' %}">Industries</a>| -->
                 <!-- <a href="{% url 'faqs' %}">FAQs</a>| -->

@@ -8,10 +8,11 @@ from reportlab.lib.units import inch
 # Create your views here.
 
 def home(request):
-    from .models import CompanyInfo, TeamMember, Testimonial
+    from .models import CompanyInfo, TeamMember, Testimonial, Program
     company_info = CompanyInfo.objects.first()
     team = TeamMember.objects.all()
     testimonials = Testimonial.objects.all()
+    homepage_programs = Program.objects.prefetch_related('images').all()
     # Placeholder data if empty
     if not company_info:
         class Placeholder:
@@ -36,6 +37,7 @@ def home(request):
         'company_info': company_info,
         'team': team,
         'testimonials': testimonials,
+        'homepage_programs': homepage_programs,
     })
 
 def about(request):
