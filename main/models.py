@@ -78,6 +78,7 @@ class TeamMember(models.Model):
 class CompanyInfo(models.Model):
     about = models.TextField()
     mission = models.TextField()
+    vision = models.TextField(blank=True, null=True)
     values = models.TextField()
     connection_to_accord = models.TextField()
     contact_email = models.EmailField()
