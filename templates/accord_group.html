@@ -7,11 +7,19 @@
             <h1 class="mb-4"><i class="bi bi-diagram-3 text-primary me-2"></i>Accord Group</h1>
             <div class="mb-4">
                 <h4><i class="bi bi-globe2 text-success me-2"></i>Overview</h4>
-                <p>Accord Group is a global leader in industrial solutions, safety, and logistics. With a legacy of over 30 years, Accord Group connects businesses and communities through innovation, reliability, and a commitment to excellence. Our companies serve a wide range of industries, providing world-class products and services that empower people and protect lives.</p>
+                {% if accord_group_info %}
+                  <p>{{ accord_group_info.overview|linebreaksbr }}</p>
+                {% else %}
+                  <p>Overview coming soon.</p>
+                {% endif %}
             </div>
             <div class="mb-4">
                 <h5><i class="bi bi-eye text-warning me-2"></i>Strategic Vision</h5>
-                <p>To be the most trusted partner in industrial safety, logistics, and services worldwide—driving progress, sustainability, and well-being for all our stakeholders.</p>
+                {% if accord_group_info %}
+                  <p>{{ accord_group_info.strategic_vision|linebreaksbr }}</p>
+                {% else %}
+                  <p>Strategic vision coming soon.</p>
+                {% endif %}
             </div>
             <div class="mb-4">
                 <h5><i class="bi bi-people text-info me-2"></i>Sister Brands / Businesses</h5>
@@ -43,42 +51,25 @@
         <div class="container">
             <h2 class="mb-4 text-center"><i class="bi bi-layers text-primary me-2"></i>A Group of Departments</h2>
             <div class="row g-4 justify-content-center">
+                {% for dept in group_departments %}
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card h-100 shadow-sm text-center animated fadeInLeft">
                         <div class="card-body">
-                            <i class="bi bi-shield-check display-4 text-warning mb-3"></i>
-                            <h5 class="card-title">PPE's Supplies</h5>
-                            <p class="card-text">Supplying certified personal protective equipment for all industries and needs.</p>
+                            {% if dept.icon %}
+                                <i class="{{ dept.icon }} display-4 mb-3"></i>
+                            {% else %}
+                                <i class="bi bi-building display-4 mb-3 text-secondary"></i>
+                            {% endif %}
+                            <h5 class="card-title">{{ dept.name }}</h5>
+                            <p class="card-text">{{ dept.description }}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm text-center animated fadeInLeft" style="animation-delay:0.1s;">
-                        <div class="card-body">
-                            <i class="bi bi-tools display-4 text-success mb-3"></i>
-                            <h5 class="card-title">General Civil Works</h5>
-                            <p class="card-text">Delivering quality civil engineering, construction, and maintenance services.</p>
-                        </div>
-                    </div>
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>No departments added yet.</p>
                 </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm text-center animated fadeInLeft" style="animation-delay:0.2s;">
-                        <div class="card-body">
-                            <i class="bi bi-house-door display-4 text-info mb-3"></i>
-                            <h5 class="card-title">Procurement of Household Supplies</h5>
-                            <p class="card-text">Sourcing and supplying essential household and office consumables.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 shadow-sm text-center animated fadeInLeft" style="animation-delay:0.3s;">
-                        <div class="card-body">
-                            <i class="bi bi-bricks display-4 text-danger mb-3"></i>
-                            <h5 class="card-title">Construction Materials</h5>
-                            <p class="card-text">Providing a wide range of quality construction and building materials.</p>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Testimonial, ProductCategory, Product, Program, FAQ, Industry, TeamMember, CompanyInfo, ProgramImage, AccordBusiness, ContactEnquiry, QuoteRequest, JobOpening
+from .models import Testimonial, ProductCategory, Product, Program, FAQ, Industry, TeamMember, CompanyInfo, ProgramImage, AccordBusiness, ContactEnquiry, QuoteRequest, JobOpening, AccordGroupInfo, GroupDepartment
 
 class ProgramImageInline(admin.TabularInline):
     model = ProgramImage
@@ -28,3 +28,5 @@ admin.site.register(AccordBusiness)
 admin.site.register(ContactEnquiry)
 admin.site.register(QuoteRequest, QuoteRequestAdmin)
 admin.site.register(JobOpening)
+admin.site.register(AccordGroupInfo)
+admin.site.register(GroupDepartment)

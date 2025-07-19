@@ -170,3 +170,22 @@ You can view this request in the admin panel.
             )
         except Exception as e:
             print(f"Failed to send email notification: {e}")
+
+class AccordGroupInfo(models.Model):
+    overview = models.TextField()
+    strategic_vision = models.TextField()
+
+    def __str__(self):
+        return "Accord Group Info"
+
+class GroupDepartment(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    icon = models.CharField(max_length=50, blank=True, help_text="Bootstrap icon class, e.g. 'bi-shield-check'")
+    display_order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['display_order', 'id']
+
+    def __str__(self):
+        return self.name

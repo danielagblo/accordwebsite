@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import CompanyInfo, TeamMember, Program, ProductCategory, Product, Industry, FAQ, Testimonial, JobOpening, AccordBusiness, ContactEnquiry
+from .models import CompanyInfo, TeamMember, Program, ProductCategory, Product, Industry, FAQ, Testimonial, JobOpening, AccordBusiness, ContactEnquiry, AccordGroupInfo, GroupDepartment
 from django.http import HttpResponse
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -70,6 +71,11 @@ def products(request):
     selected_category = request.GET.get('category')
     if selected_category:
         products = [p for p in products if (getattr(p, 'category', None) and (getattr(p.category, 'name', None) == selected_category))]
+    # Pagination
+    paginator = Paginator(products, 10)  # Show 10 products per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    products = page_obj.object_list
     if not categories:
         class C:
             def __init__(self, name):
@@ -110,6 +116,7 @@ def products(request):
         'products': products,
         'selected_category': selected_category,
         'industries': industries,
+        'page_obj': page_obj,
     })
 
 def industries(request):
@@ -166,10 +173,14 @@ def accord_group(request):
     company_info = CompanyInfo.objects.first()
     team = TeamMember.objects.all()
     businesses = AccordBusiness.objects.all()
+    accord_group_info = AccordGroupInfo.objects.first()
+    group_departments = GroupDepartment.objects.all()
     return render(request, 'accord_group.html', {
         'company_info': company_info,
         'team': team,
         'businesses': businesses,
+        'accord_group_info': accord_group_info,
+        'group_departments': group_departments,
     })
 
 def contact(request):
